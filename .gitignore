@@ -1,0 +1,40 @@
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Node / React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+build/
+.next/
+out/
+coverage/
+
+# Environment
+.env*
+*.env
+application-local.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build folders
+target/
+bin/
+out/
+dist/
+dump/

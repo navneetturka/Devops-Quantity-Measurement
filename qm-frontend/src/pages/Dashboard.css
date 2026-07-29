@@ -1,0 +1,19 @@
+/* The Measurement Module is the primary reason a user opens the dashboard,
+   so it should dominate the available width instead of sharing a narrow
+   column with a sidebar. Recent Activity now sits full-width below it. */
+.dashboard {
+  max-width: 1240px;
+  padding: 32px 24px 56px;
+}
+
+.dashboard-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 24px 16px 40px;
+  }
+}

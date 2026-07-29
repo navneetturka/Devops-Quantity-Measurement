@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Quantity Measurement — Design Tokens (v3: minimal dashboard redesign)
+   Direction: GitHub / Linear / Notion-inspired. Neutral grays, one accent
+   color, no gradients, restrained motion. Theme is switched by toggling
+   [data-theme="light"|"dark"] on <html>; every color below is a variable
+   so the whole app repaints instantly with no per-component logic.
+   ========================================================================== */
+
+:root {
+  --font-display: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+
+  --header-height: 64px;
+  --transition-theme: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* -------------------- Light theme (default) -------------------- */
+[data-theme="light"] {
+  --bg: #ffffff;
+  --bg-subtle: #f6f8fa;
+  --surface: #ffffff;
+  --surface-hover: #f6f8fa;
+  --border: #d0d7de;
+  --border-subtle: #eaeef2;
+
+  --text-primary: #1f2328;
+  --text-secondary: #59636e;
+  --text-tertiary: #8c959f;
+
+  --accent: #2f6feb;
+  --accent-hover: #1d5bd6;
+  --accent-subtle: #eef3fd;
+  --accent-contrast: #ffffff;
+
+  --success: #1a7f37;
+  --success-subtle: #e6f4ea;
+  --danger: #cf222e;
+  --danger-subtle: #fdedee;
+  --warning: #9a6700;
+  --warning-subtle: #fff8c5;
+
+  --shadow-sm: 0 1px 2px rgba(31, 35, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(31, 35, 40, 0.08);
+  --overlay: rgba(31, 35, 40, 0.5);
+}
+
+/* -------------------- Dark theme -------------------- */
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --bg-subtle: #131820;
+  --surface: #161b22;
+  --surface-hover: #1c232c;
+  --border: #30363d;
+  --border-subtle: #21262d;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #9198a1;
+  --text-tertiary: #6b7280;
+
+  --accent: #4c8dfa;
+  --accent-hover: #6ba0fb;
+  --accent-subtle: #16233d;
+  --accent-contrast: #0d1117;
+
+  --success: #3fb950;
+  --success-subtle: #10261a;
+  --danger: #f85149;
+  --danger-subtle: #2d1214;
+  --warning: #d29922;
+  --warning-subtle: #2b2111;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --overlay: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  transition: var(--transition-theme);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+svg {
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+/* Respect reduced-motion preferences everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* -- layout shell -- */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.app-main {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: var(--header-height);
+}
+
+/* -- shared card surface -- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-theme), box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.card-hover:hover {
+  border-color: var(--text-tertiary);
+  box-shadow: var(--shadow-md);
+}
+
+/* -- shared button system -- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-tertiary);
+}
+.btn-danger {
+  background: var(--danger);
+  color: #ffffff;
+  border-color: var(--danger);
+}
+.btn-danger:hover {
+  filter: brightness(0.92);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+  padding: 8px 12px;
+}
+.btn-ghost:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+.btn-block {
+  width: 100%;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.btn-icon {
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+}
+
+/* -- badges -- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  white-space: nowrap;
+}
+.badge-add { color: var(--success); border-color: var(--success); background: var(--success-subtle); }
+.badge-subtract { color: var(--danger); border-color: var(--danger); background: var(--danger-subtle); }
+.badge-divide { color: var(--accent); border-color: var(--accent); background: var(--accent-subtle); }
+.badge-convert { color: var(--warning); border-color: var(--warning); background: var(--warning-subtle); }
+.badge-compare { color: var(--text-secondary); border-color: var(--border); background: var(--bg-subtle); }
+.badge-error { color: var(--danger); border-color: var(--danger); background: var(--danger-subtle); }
+.badge-success { color: var(--success); border-color: var(--success); background: var(--success-subtle); }
+
+/* -- form controls -- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.field input,
+.field select {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.field input:hover,
+.field select:hover {
+  border-color: var(--text-tertiary);
+}
+.field input:focus,
+.field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+  outline: none;
+}
+.field input.field-invalid,
+.field select.field-invalid {
+  border-color: var(--danger);
+}
+.field input.field-invalid:focus,
+.field select.field-invalid:focus {
+  box-shadow: 0 0 0 3px var(--danger-subtle);
+}
+.field-error {
+  font-size: 0.78rem;
+  color: var(--danger);
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 0 16px;
+  }
+}

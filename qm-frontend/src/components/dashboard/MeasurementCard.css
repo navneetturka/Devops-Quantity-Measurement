@@ -1,0 +1,161 @@
+.measurement-card {
+  padding: 32px 36px 36px;
+}
+
+@media (max-width: 640px) {
+  .measurement-card {
+    padding: 20px;
+  }
+}
+
+.mc-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.mc-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+}
+.mc-title h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.mc-type-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-md);
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+.mc-tab {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 7px 13px;
+  border-radius: 7px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.mc-tab-active {
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.mc-op-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+.mc-op {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.mc-op:hover {
+  border-color: var(--text-tertiary);
+}
+.mc-op-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-subtle);
+}
+
+.mc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mc-fields-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mc-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 12px;
+}
+
+/* At wide desktop widths the module has plenty of horizontal room, so
+   First and Second Quantity sit side by side instead of stacking. */
+@media (min-width: 860px) {
+  .mc-fields-grid {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .mc-fields-grid .mc-row {
+    flex: 1;
+  }
+}
+
+.mc-result {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.mc-result-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.mc-result-op {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.mc-result-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.mc-result-line {
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+.accent-good {
+  color: var(--success);
+}
+.accent-bad {
+  color: var(--danger);
+}
+.mc-copy-btn {
+  font-size: 0.82rem;
+  padding: 7px 13px;
+  flex-shrink: 0;
+}
+.mc-result-unit-field {
+  max-width: 220px;
+}
+
+@media (max-width: 520px) {
+  .mc-row {
+    grid-template-columns: 1fr;
+  }
+  .mc-result-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

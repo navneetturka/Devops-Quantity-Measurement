@@ -1,0 +1,56 @@
+.login-screen {
+  min-height: calc(100vh - var(--header-height) - 120px);
+  display: grid;
+  place-items: center;
+  padding: 60px 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.login-mark {
+  width: 44px;
+  height: 44px;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  border-radius: 10px;
+}
+
+.login-card h1 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.login-copy {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  margin-bottom: 26px;
+}
+
+.google-btn {
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+.google-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-tertiary);
+}
+
+.login-note {
+  margin-top: 20px;
+  font-size: 0.74rem;
+  color: var(--text-tertiary);
+}
