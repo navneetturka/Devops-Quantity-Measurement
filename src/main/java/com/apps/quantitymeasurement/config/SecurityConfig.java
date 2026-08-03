@@ -23,7 +23,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -36,6 +35,9 @@ public class SecurityConfig {
 
     @Value("#{'${app.security.public-paths}'.split(',')}")
     private List<String> publicPaths;
+
+    @Value("#{'${app.cors.allowed-origins}'.split(',')}")
+    private List<String> corsAllowedOrigins;
 
     private final CustomOAuth2UserService customOAuth2UserService;
     private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
@@ -100,11 +102,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://localhost:8080"
-        ));
-        config.setAllowedMethods(Arrays.asList(
+        config.setAllowedOrigins(corsAllowedOrigins);
+        config.setAllowedMethods(List.of(
                 "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
         config.setAllowedHeaders(List.of("*"));
