@@ -1,15 +1,20 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK21'
+        maven 'Maven3'
+    }
+
     stages {
 
-        stage('Checkout') {
+        stage('Checkout Source') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Build Maven Project') {
+        stage('Build Application') {
             steps {
                 sh 'mvn clean package -DskipTests'
             }
@@ -21,7 +26,7 @@ pipeline {
             }
         }
 
-        stage('Show Docker Images') {
+        stage('List Docker Images') {
             steps {
                 sh 'docker images'
             }
@@ -30,10 +35,11 @@ pipeline {
 
     post {
         success {
-            echo 'Build completed successfully!'
+            echo 'Pipeline executed successfully!'
         }
+
         failure {
-            echo 'Build failed!'
+            echo 'Pipeline failed!'
         }
     }
 }
